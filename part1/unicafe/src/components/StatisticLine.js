@@ -1,4 +1,4 @@
-const Statistic = ({ text, count }) => {
+const StatisticLine = ({ text, count }) => {
   return (
     <>
       <div>
@@ -8,4 +8,4 @@ const Statistic = ({ text, count }) => {
   );
 };
 
-export default Statistic;
+export default StatisticLine;

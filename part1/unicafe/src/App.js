@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Button from './components/Button';
-import Statistic from './components/Statistic';
+import Statistics from './components/Statistics';
 
 const App = () => {
   const [good, setGood] = useState(0);
@@ -36,13 +36,12 @@ const App = () => {
         text="bad"
       />
       <h1>statistics</h1>
-      <Statistic text="good" count={good} />
-      <Statistic text="neutral" count={neutral} />
-      <Statistic text="bad" count={bad} />
-      <Statistic text="average" count={score / total > 0 ? score / total : 0} />
-      <Statistic
-        text="positive"
-        count={good / total > 0 ? `${(good / total) * 100}%` : 0}
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        score={score}
+        total={total}
       />
     </>
   );
