@@ -12,16 +12,29 @@ const App = () => {
     'The only way to go fast, is to go well.',
   ];
 
+  const initialPoints = new Float32Array(8);
   const [selected, setSelected] = useState(0);
+  const [points, setPoints] = useState(initialPoints);
 
-  const handleClick = () => {
+  const handleAncedoteClick = () => {
     setSelected(Math.floor(Math.random() * 8));
+  };
+
+  const handleVoteClick = (ancedoteIndex) => {
+    const newPoints = points.map((point, index) => {
+      return index === ancedoteIndex ? point + 1 : point;
+    });
+    setPoints(newPoints);
   };
 
   return (
     <>
-      <div>{anecdotes[selected]}</div>
-      <button onClick={handleClick}>next ancedote</button>
+      <div>
+        {anecdotes[selected]}
+        <br /> has {points[selected]} votes
+      </div>
+      <button onClick={() => handleVoteClick(selected)}>vote</button>
+      <button onClick={handleAncedoteClick}>next ancedote</button>
     </>
   );
 };
