@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Anecdote from './components/Anecdote';
 
 const App = () => {
   const anecdotes = [
@@ -12,29 +13,31 @@ const App = () => {
     'The only way to go fast, is to go well.',
   ];
 
-  const initialPoints = new Float32Array(8);
+  const initialPoints = [0, 0, 0, 0, 0, 0, 0, 0];
   const [selected, setSelected] = useState(0);
   const [points, setPoints] = useState(initialPoints);
+  const [mostVotes, setMostVotes] = useState(0);
 
   const handleAncedoteClick = () => {
-    setSelected(Math.floor(Math.random() * 8));
+    return setSelected(Math.floor(Math.random() * 8));
   };
 
-  const handleVoteClick = (ancedoteIndex) => {
+  const handleVoteClick = (anecdoteIndex) => {
     const newPoints = points.map((point, index) => {
-      return index === ancedoteIndex ? point + 1 : point;
+      return index === anecdoteIndex ? point + 1 : point;
     });
     setPoints(newPoints);
+    setMostVotes(newPoints.indexOf(Math.max(...newPoints)));
   };
 
   return (
     <>
-      <div>
-        {anecdotes[selected]}
-        <br /> has {points[selected]} votes
-      </div>
+      <h1>Anecdote of the day</h1>
+      <Anecdote anecdotes={anecdotes} selected={selected} points={points} />
       <button onClick={() => handleVoteClick(selected)}>vote</button>
-      <button onClick={handleAncedoteClick}>next ancedote</button>
+      <button onClick={handleAncedoteClick}>next anecdote</button>
+      <h1>Anecdote with the most votes</h1>
+      <Anecdote anecdotes={anecdotes} selected={mostVotes} points={points} />
     </>
   );
 };
